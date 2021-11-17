@@ -1,18 +1,9 @@
 package goods_crud.goods_api.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import goods_crud.goods_api.common.GenderType;
-import goods_crud.goods_api.common.GoodsType;
-import goods_crud.goods_api.domain.Goods;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.ToString;
-
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -24,6 +15,8 @@ public class SaveGoodsDto {
         @lombok.ToString
         @JsonInclude(JsonInclude.Include.NON_NULL)
         public static  class Request {
+
+                private Long goodsN
                 //상품 이름
                 private String goodsNm;
                 //상품 설명
