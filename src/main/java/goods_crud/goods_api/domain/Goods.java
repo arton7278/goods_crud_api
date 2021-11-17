@@ -1,34 +1,17 @@
 package goods_crud.goods_api.domain;
 
-import goods_crud.goods_api.dto.SaveGoodsDto;
+import goods_crud.goods_api.dto.CreateGoodsDto;
+import goods_crud.goods_api.dto.UpdateGoodsDto;
 import lombok.*;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+import static javax.persistence.FetchType.LAZY;
 
-//CREATE TABLE `goods` (
-//        `goods_no` int(11) NOT NULL DEFAULT '0' COMMENT '상품번호',
-//        `goods_nm` varchar(100) DEFAULT NULL COMMENT '상품명',
-//        `goods_cont` text COMMENT '상품설명',
-//        `goods_type` varchar(100) DEFAULT NULL COMMENT '상품 타입(단독 상품, 세일 상품, 타입세일, 품절 포함)',
-//        `goods_price` int(11) NOT NULL DEFAULT '0' COMMENT '상품가격',
-//        `discount rate` int(11) NOT NULL DEFAULT '0' COMMENT '할인율',
-//        `gender_type` varchar(10) DEFAULT NULL COMMENT 'unisex, man, woman'
-//        `part_number`  varchar(100) DEFAULT NULL COMMENT '품번 ',
-//        `category_no` int(11) DEFAULT NULL  COMMENT '카테고리 No',
-//        `com_id` varchar(20) DEFAULT NULL COMMENT '업체 아이디',
-//        `brand_id` varchar(20) DEFAULT NULL COMMENT '업체 아이디',
-//        `is_show` int(1) NULL DEFAULT '0' COMMENT '노출여부',
-//        `is_temp` int(1) NULL DEFAULT '0' COMMENT '임시저장여부',
-//        `reg_dm` datetime DEFAULT NULL COMMENT '상품정보 최초등록일시',
-//        `reg_user_no` int(11) DEFAULT NULL COMMENT '등록자 no',
-//        `upd_dm` datetime DEFAULT NULL COMMENT '상품정보 수정일시',
-//        `upd_user_no` int(11) DEFAULT NULL COMMENT '수정자 no'
-//        PRIMARY KEY (`goods_no`)
-//        ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='상품마스터'
 @Entity
-@Getter @Setter
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Goods {
     //goods 시리얼
@@ -51,9 +34,9 @@ public class Goods {
     //카테고리 넘버
     private Integer categoryNo;
     //업체 Id
-    private String comId;
-    //브랜드 Id
-    private String brandId;
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "comId")
+    private Company company;
     //노출여부
     private Boolean isShow;
     //등록시간
@@ -65,23 +48,62 @@ public class Goods {
     //수정 Id
     private String updUserId;
 
-    public static Goods createGoods(SaveGoodsDto.Request request){
-        Goods goods = new Goods();
-        goods.setGoodsNm(request.getGoodsNm());
-        goods.setGoodsCont(request.getGoodsCont());
-        goods.setGoodsType(request.getGoodsType());
-        goods.setGoodsPrice(request.getGoodsPrice());
-        goods.setPartNumber(request.getPartNumber());
-        goods.setCategoryNo(request.getCategoryNo());
-        goods.setComId(request.getComId());
-        goods.setBrandId(request.getBrandId());
-        goods.setIsShow(request.getIsShow());
-        goods.setRegDm(LocalDateTime.now());
-        goods.setRegUserId(request.getRegUserId());
-        goods.setUpdDm(LocalDateTime.now());
-        goods.setUpdUserId(request.getUpdUserId());
+    @Builder
+    public Goods (CreateGoodsDto.Request request, Company company) {
+        this.goodsNm = request.getGoodsNm();
+        this.goodsPrice = request.getGoodsPrice();
+        this.categoryNo = request.getCategoryNo();
+        this.company = company;
+        this.genderType = request.getGenderType();
 
-        return goods;
+        this.discountRate = request.getDiscountRate();
+        this.goodsCont = request.getGoodsCont();
+        this.goodsType = request.getGoodsType();
+        this.partNumber = request.getPartNumber();
+
+        this.isShow = request.getIsShow();
+        this.regDm = LocalDateTime.now();
+        this.regUserId = request.getRegUserId();
+        this.updDm = LocalDateTime.now();
+        this.updUserId = request.getUpdUserId();
+    }
+
+    public void changeGoods(UpdateGoodsDto.Request request, Company company){
+
+        if(StringUtils.isNotBlank(request.getGoodsNm())){
+            this.goodsNm = request.getGoodsNm();
+        }
+
+        //테스트
+        this.goodsCont = request.getGoodsCont();
+
+        if(StringUtils.isNotBlank(request.getGoodsType())){
+            this.goodsType = request.getGoodsType();
+        }
+
+        if(request.getGoodsPrice() != null && request.getGoodsPrice() > 0) {
+            this.goodsPrice = request.getGoodsPrice();
+        }
+
+        if(request.getDiscountRate() != null){
+            this.discountRate = request.getDiscountRate();
+        }
+
+        if(request.getPartNumber() != null ){
+            this.partNumber = request.getPartNumber();
+        }
+
+        if(request.getCategoryNo() != null){
+            this.categoryNo = request.getCategoryNo();
+        }
+
+        if(company != null){
+            this.company = company;
+        }
+
+        this.isShow = request.getIsShow();
+        this.updDm = LocalDateTime.now();
+        this.updUserId = request.getUpdUserId();
     }
 
 }
