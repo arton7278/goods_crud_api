@@ -31,14 +31,10 @@ public class GoodsService {
                 .build();
         companyRepository.save(company1);
 
-
-
-        if(StringUtils.isBlank(request.getComId())){
-            throw new ApiException(ErrorCode.NOT_EXIST_GOODS_COM_ID);
-        }
-
-        Company findCompany = companyRepository.findCompanyByComId(request.getComId());
+//        Company findCompany = companyRepository.findCompanyByComId(request.getComId());
+        Company findCompany = companyRepository.findById(request.getComId()).orElse(null);
         Goods goods = Goods.builder().request(request).company(findCompany).build();
+
         goodsRepository.save(goods);
         return goods.getGoodsNo();
     }
@@ -46,9 +42,11 @@ public class GoodsService {
     @Transactional
     public Long updateGoods(Long goodsNo, UpdateGoodsDto.Request request) {
         Company findCompany = null;
-        if(StringUtils.isNotBlank(request.getComId())){
-            findCompany = companyRepository.findCompanyByComId(request.getComId());
+        if(request.getComId() != null){
+//            findCompany = companyRepository.findCompanyByComId(request.getComId());
+            findCompany = companyRepository.findById(request.getComId()).orElse(null);
         }
+
 
         Goods findGoods = goodsRepository.findById(goodsNo).orElse(null);
 

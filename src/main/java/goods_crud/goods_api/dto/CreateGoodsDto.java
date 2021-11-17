@@ -31,7 +31,7 @@ public class CreateGoodsDto {
                 private Integer categoryNo;
                 //업체 Id
                 @NotNull
-                private String comId;
+                private Long comId;
                 //상품 설명
                 private String goodsCont;
                 //상품 타입
