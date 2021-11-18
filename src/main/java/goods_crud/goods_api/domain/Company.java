@@ -18,8 +18,13 @@ public class Company {
 
     @Id
     @GeneratedValue
-    @Column(name="com_id")
-    private Long comId;
+    @Column(name="com_No")
+    private Long comNo;
+
+    @Column(name="com_id", unique = true, nullable = false)
+    private String comId;
+
+    @Column(nullable = false)
     private String comNm;
 
     @JsonIgnore
@@ -36,7 +41,8 @@ public class Company {
     private String updUserId;
 
     @Builder
-    public Company (String comNm, String regUserId, String updUserId) {
+    public Company (String comId, String comNm, String regUserId, String updUserId) {
+        this.comId = comId;
         this.comNm = comNm;
         this.regUserId = regUserId;
         this.updUserId = updUserId;

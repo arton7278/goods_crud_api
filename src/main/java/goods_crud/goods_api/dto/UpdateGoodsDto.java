@@ -32,7 +32,7 @@ public class UpdateGoodsDto {
                 //카테고리 넘버
                 private Integer categoryNo;
                 //업체 Id
-                private Long comId;
+                private String comId;
                 //브랜드 Id
                 private String brandId;
                 //노출여부

@@ -38,20 +38,20 @@ public class InitDb {
         private final EntityManager em;
 
         public void dbInit1() {
-            Company company1 = Company.builder().comNm("킹즈").regUserId("mateo").updUserId("metao")
+            Company company1 = Company.builder().comId("kinz").comNm("킹즈").regUserId("mateo").updUserId("metao")
                     .build();
             em.persist(company1);
 
-            Company company2 = Company.builder().comNm("하야부사").regUserId("mateo").updUserId("metao")
+            Company company2 = Company.builder().comId("habs").comNm("하야부사").regUserId("mateo").updUserId("metao")
                     .build();
             em.persist(company2);
         }
 
         public void dbInit2() {
-            Company company1 = Company.builder().comNm("불테리어").regUserId("mateo").updUserId("metao")
+            Company company1 = Company.builder().comId("adidas").comNm("아디다스").regUserId("mateo").updUserId("metao")
                     .build();
             em.persist(company1);
-            Company company2 = Company.builder().comNm("문디알").regUserId("mateo").updUserId("metao")
+            Company company2 = Company.builder().comId("mdr").comNm("문디알").regUserId("mateo").updUserId("metao")
                     .build();
             em.persist(company2);
         }

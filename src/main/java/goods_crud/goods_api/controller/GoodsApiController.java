@@ -1,6 +1,8 @@
 package goods_crud.goods_api.controller;
 
+import goods_crud.goods_api.dto.CommonResponseDto;
 import goods_crud.goods_api.dto.CreateGoodsDto;
+import goods_crud.goods_api.dto.SearchGoodsDto;
 import goods_crud.goods_api.dto.UpdateGoodsDto;
 import goods_crud.goods_api.service.GoodsService;
 import lombok.RequiredArgsConstructor;
@@ -26,5 +28,12 @@ public class GoodsApiController {
         Long resultGoodsNo = goodsService.updateGoods(goodsNo, request);
         UpdateGoodsDto.Response response = new UpdateGoodsDto.Response();
         return response.toDo(resultGoodsNo);
+    }
+
+    @GetMapping("/api/v1/goods")
+    public CommonResponseDto findGoodsAll(@ModelAttribute SearchGoodsDto searchGoodsDto) {
+        CommonResponseDto responseDto = new CommonResponseDto();
+        responseDto.toDoList(goodsService.findGoodsAll(searchGoodsDto));
+        return responseDto;
     }
 }
