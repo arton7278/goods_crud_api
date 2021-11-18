@@ -2,6 +2,7 @@ package goods_crud.goods_api.dto;
 
 import com.querydsl.core.annotations.QueryProjection;
 import goods_crud.goods_api.domain.Goods;
+import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -43,7 +44,7 @@ public class FindResultGoodsDto {
 
 	@QueryProjection
 	public FindResultGoodsDto(Long goodsNo, String goodsNm, String goodsCont, String goodsType, String genderType, String partNumber, Integer categoryNo,
-			String comId, String comNm, Long goodsPrice, Long discountRate LocalDateTime regDm, String regUserId,
+			String comId, String comNm, Long goodsPrice, Long discountRate, LocalDateTime regDm, String regUserId,
 			LocalDateTime updDm, String updUserId) {
 		this.goodsNo = goodsNo;
 		this.goodsNm = goodsNm;
@@ -57,11 +58,34 @@ public class FindResultGoodsDto {
 		this.goodsPrice = goodsPrice;
 		this.discountRate = discountRate;
 		if(this.discountRate != null){
-			this.discountPrice = Math.round(this.goodsPrice.doubleValue() * this.discountRate.doubleValue() / 100.0);
+			this.discountPrice = Math.round(this.goodsPrice.doubleValue() * (100L - this.discountRate.doubleValue()) / 100.0);
 		}
 		this.regDm = regDm;
 		this.regUserId = regUserId;
 		this.updDm = updDm;
 		this.updUserId = updUserId;
+	}
+
+	@Builder
+	public FindResultGoodsDto(Goods findGoods){
+		this.goodsNo = findGoods.getGoodsNo();
+		this.goodsNm = findGoods.getGoodsNm();
+		this.goodsCont = findGoods.getGoodsCont();
+		this.goodsType = findGoods.getGoodsType();
+		this.genderType = findGoods.getGenderType();
+		this.partNumber = findGoods.getPartNumber();
+		this.categoryNo = findGoods.getCategoryNo();
+		this.comId = findGoods.getCompany().getComId();
+		this.comNm = findGoods.getCompany().getComNm();
+		this.goodsPrice = findGoods.getGoodsPrice();
+		this.discountRate = findGoods.getDiscountRate();
+		if(this.discountRate != null){
+			this.discountPrice = Math.round(this.goodsPrice.doubleValue() * (100L - this.discountRate.doubleValue()) / 100.0);
+		}
+		this.regDm = findGoods.getRegDm();
+		this.regUserId = findGoods.getRegUserId();
+		this.updDm = findGoods.getUpdDm();
+		this.updUserId = findGoods.getUpdUserId();
+
 	}
 }
