@@ -1,22 +1,20 @@
 package goods_crud.goods_api.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.ToString;
+import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
-@ToString
+@Slf4j
 public class SearchGoodsDto {
 	//상품 이름
 	private String goodsNm;
 	//상품 타입
-	private List<String> goodsType;
+	private List<String> goodsTypes;
 	//성별구분
-	private List<String> genderType;
+	private List<String> genderTypes;
 	//상품품번
 	private String partNumber;
 	//카테고리 넘버
@@ -37,10 +35,10 @@ public class SearchGoodsDto {
 	private LocalDateTime endDm;
 	//정렬 컬럼 디폴트 등록일 (regDm, goodsNm, minPrice, maxPrice)
 	private String orderField = "regDm";
-	//정렬 타입 디폴트 desc (asc, desc)
+	//정렬 타입 디폴트 asc (asc, desc)
 	private String orderType = "desc";
 
-	private Integer startNo = 0;
+	private Integer startNo;
 
-	private Integer endNo = 10;
+	private Integer endNo;
 }

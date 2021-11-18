@@ -4,6 +4,7 @@ import goods_crud.goods_api.dto.CreateGoodsDto;
 import goods_crud.goods_api.dto.UpdateGoodsDto;
 import lombok.*;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -44,10 +45,12 @@ public class Goods {
     //노출여부
     private Boolean isShow;
     //등록시간
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime regDm;
     //등록자 Id
     private String regUserId;
     //수정 시간
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updDm;
     //수정 Id
     private String updUserId;
