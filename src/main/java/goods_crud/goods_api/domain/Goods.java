@@ -18,20 +18,24 @@ public class Goods {
     @Id @GeneratedValue
     private Long goodsNo;
     //상품 이름
+    @Column(nullable = false)
     private String goodsNm;
     //상품 설명
     private String goodsCont;
     //상품 타입
     private String goodsType;
     //상품가격
+    @Column(nullable = false)
     private Long goodsPrice;
     //상품 할인율
     private Long discountRate;
     //성별구분
+    @Column(nullable = false)
     private String genderType;
     //상품품번
     private String partNumber;
     //카테고리 넘버
+    @Column(nullable = false)
     private Integer categoryNo;
     //업체 Id
     @ManyToOne(fetch = LAZY)

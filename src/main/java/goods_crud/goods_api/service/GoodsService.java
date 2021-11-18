@@ -4,14 +4,16 @@ import goods_crud.goods_api.common.ErrorCode;
 import goods_crud.goods_api.domain.Company;
 import goods_crud.goods_api.domain.Goods;
 import goods_crud.goods_api.dto.CreateGoodsDto;
+import goods_crud.goods_api.dto.SearchGoodsDto;
 import goods_crud.goods_api.dto.UpdateGoodsDto;
 import goods_crud.goods_api.exception.ApiException;
 import goods_crud.goods_api.repository.CompanyRepository;
 import goods_crud.goods_api.repository.GoodsRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -31,8 +33,8 @@ public class GoodsService {
                 .build();
         companyRepository.save(company1);
 
-//        Company findCompany = companyRepository.findCompanyByComId(request.getComId());
-        Company findCompany = companyRepository.findById(request.getComId()).orElse(null);
+        Company findCompany = companyRepository.findCompanyByComId(request.getComId());
+//        Company findCompany = companyRepository.findById(request.getComId()).orElse(null);
         Goods goods = Goods.builder().request(request).company(findCompany).build();
 
         goodsRepository.save(goods);
@@ -43,8 +45,8 @@ public class GoodsService {
     public Long updateGoods(Long goodsNo, UpdateGoodsDto.Request request) {
         Company findCompany = null;
         if(request.getComId() != null){
-//            findCompany = companyRepository.findCompanyByComId(request.getComId());
-            findCompany = companyRepository.findById(request.getComId()).orElse(null);
+            findCompany = companyRepository.findCompanyByComId(request.getComId());
+//            findCompany = companyRepository.findById(request.getComId()).orElse(null);
         }
 
 
@@ -59,4 +61,8 @@ public class GoodsService {
 
         return findGoods.getGoodsNo();
     }
+
+	public List<Object> findGoodsAll(SearchGoodsDto searchGoodsDto) {
+        return goodsRepository.findGoodsAll(searchGoodsDto);
+	}
 }
