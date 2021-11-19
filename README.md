@@ -12,7 +12,7 @@
 		- config
 		- controller
 		- domain
-		- dot
+		- dto
 		- exception
 		- repository
 			- impl
