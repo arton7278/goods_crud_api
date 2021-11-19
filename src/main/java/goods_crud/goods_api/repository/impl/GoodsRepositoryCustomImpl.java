@@ -18,7 +18,6 @@ import static goods_crud.goods_api.domain.QGoods.goods;
 
 
 public class GoodsRepositoryCustomImpl implements GoodsRepositoryCustom {
-
 	private final JPAQueryFactory queryFactory;
 
 	public GoodsRepositoryCustomImpl(EntityManager em) {
@@ -82,5 +81,7 @@ public class GoodsRepositoryCustomImpl implements GoodsRepositoryCustom {
 	private BooleanExpression dateBetween(LocalDateTime startDm, LocalDateTime endDm) {
 		return (startDm != null && endDm != null) ? goods.regDm.between(startDm, endDm) : null;
 	}
+
+
 
 }

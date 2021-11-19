@@ -80,15 +80,16 @@ public class Goods {
         if(StringUtils.isNotBlank(request.getGoodsNm())){
             this.goodsNm = request.getGoodsNm();
         }
-
         //테스트
-        this.goodsCont = request.getGoodsCont();
+        if(StringUtils.isNotBlank(request.getGoodsCont())){
+            this.goodsCont = request.getGoodsCont();
+        }
 
         if(StringUtils.isNotBlank(request.getGoodsType())){
             this.goodsType = request.getGoodsType();
         }
 
-        if(request.getGoodsPrice() != null && request.getGoodsPrice() > 0) {
+        if(request.getGoodsPrice() != null) {
             this.goodsPrice = request.getGoodsPrice();
         }
 

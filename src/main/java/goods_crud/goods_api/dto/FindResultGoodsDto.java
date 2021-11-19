@@ -42,6 +42,7 @@ public class FindResultGoodsDto {
 	//수정 Id
 	private String updUserId;
 
+
 	@QueryProjection
 	public FindResultGoodsDto(Long goodsNo, String goodsNm, String goodsCont, String goodsType, String genderType, String partNumber, Integer categoryNo,
 			String comId, String comNm, Long goodsPrice, Long discountRate, LocalDateTime regDm, String regUserId,
@@ -88,4 +89,6 @@ public class FindResultGoodsDto {
 		this.updUserId = findGoods.getUpdUserId();
 
 	}
+
+	public FindResultGoodsDto() {}
 }

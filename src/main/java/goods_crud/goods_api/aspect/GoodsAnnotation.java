@@ -11,4 +11,7 @@ public class GoodsAnnotation {
         String name() default "";
     }
 
+    @Retention(RetentionPolicy.RUNTIME)
+    public @interface GoodsChangeLogging {}
+
 }

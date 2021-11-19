@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.ToString;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -19,19 +20,19 @@ public class CreateGoodsDto {
         @JsonInclude(JsonInclude.Include.NON_NULL)
         public static  class Request {
                 //상품 이름
-                @NotNull @NotEmpty
+                @NotBlank
                 private String goodsNm;
                 //상품가격
                 @NotNull @Min(0)
                 private Long goodsPrice;
                 //성별구분
-                @NotNull
+                @NotBlank
                 private String genderType;
                 //카테고리 넘버
                 @NotNull
                 private Integer categoryNo;
                 //업체 Id
-                @NotNull
+                @NotBlank
                 private String comId;
                 //상품 설명
                 private String goodsCont;
